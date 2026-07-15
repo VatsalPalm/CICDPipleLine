@@ -1127,8 +1127,8 @@ function App() {
       {/* Footer */}
       <footer className="footer">
         <p className="footer-text">
-          © {new Date().getFullYear()} FlowOps Pipeline Orchestrator. Configured
-          with GitHub Actions & SonarQube.
+          © {new Date().getFullYear()} FlowOps Pipeline Orchestrator. with
+          GitHub Actions & SonarQube.
         </p>
       </footer>
     </div>
