@@ -213,7 +213,7 @@ function App() {
             </svg>
             CI/CD Pipeline Center Active
           </div>
-          <h1 className="hero-title">Your Development</h1>
+          <h1 className="hero-title">Vatsal's Development</h1>
           <p className="hero-subtitle">
             Configure integration actions, view live build status flow charts,
             and analyze deep code-quality metrics powered by SonarQube scanner.
