@@ -103,6 +103,11 @@ a {
   }
 }
 
+@keyframes sonar-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0; }
+}
+
 /* Utility Classes */
 .font-display {
   font-family: var(--font-display);
@@ -202,6 +207,47 @@ a {
   margin: 0 auto;
   width: 100%;
   padding: 2.5rem 2rem;
+}
+
+/* Tabs Section */
+.tabs-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  background: rgba(17, 20, 32, 0.4);
+  padding: 0.375rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tab-btn {
+  font-family: var(--font-display);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 0.625rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tab-btn:hover {
+  color: white;
+}
+
+.tab-btn.active {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Hero Section */
@@ -491,6 +537,13 @@ a {
   box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
 }
 
+.action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 .secondary-button {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-color);
@@ -508,6 +561,155 @@ a {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.15);
 }
+
+/* SonarQube Specific Layout */
+.sonar-status-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.08), transparent 60%);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+.sonar-status-banner.failed {
+  background: radial-gradient(circle at top right, rgba(244, 63, 94, 0.08), transparent 60%);
+  border: 1px solid rgba(244, 63, 94, 0.15);
+}
+
+.sonar-status-banner.scanning {
+  background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.08), transparent 60%);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+}
+
+.sonar-status-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sonar-gate-badge {
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 800;
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+  font-size: 0.9375rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sonar-gate-badge.passed {
+  background: var(--color-emerald);
+  color: #042f1a;
+}
+
+.sonar-gate-badge.failed {
+  background: var(--color-rose);
+  color: #4c0519;
+}
+
+.sonar-gate-badge.scanning {
+  background: var(--color-cyan);
+  color: #083344;
+}
+
+.sonar-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.rating-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.rating-circle.a {
+  background: var(--color-emerald);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+.rating-circle.b {
+  background: #a3e635; /* light green */
+  color: #1e3a0a;
+}
+
+.rating-circle.c {
+  background: var(--color-amber);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+}
+
+.rating-circle.d {
+  background: #f97316; /* orange */
+}
+
+.rating-circle.e {
+  background: var(--color-rose);
+  box-shadow: 0 0 15px rgba(244, 63, 94, 0.3);
+}
+
+.sonar-issues-card {
+  margin-top: 2rem;
+}
+
+.sonar-issues-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.25rem;
+}
+
+.sonar-issues-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sonar-issues-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+
+.sonar-issues-table tr:last-child td {
+  border-bottom: none;
+}
+
+.issue-severity {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+}
+
+.issue-severity.blocker { background: rgba(244, 63, 94, 0.15); color: var(--color-rose); }
+.issue-severity.critical { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+.issue-severity.major { background: rgba(245, 158, 11, 0.15); color: var(--color-amber); }
+.issue-severity.minor { background: rgba(99, 102, 241, 0.15); color: #c7d2fe; }
 
 /* Footer Section */
 .footer {
@@ -547,5 +749,10 @@ a {
     top: auto;
     left: 90px;
     white-space: nowrap;
+  }
+  .sonar-status-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 }
