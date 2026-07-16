@@ -27,8 +27,13 @@ jobs:
         run: yarn build
 
       - name: Run Unit Tests with Coverage
-        run: yarn test --coverage --watchAll=false
-        continue-on-error: true
+        run: yarn test:coverage
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
   docker-build-push:
     needs: build-and-test
