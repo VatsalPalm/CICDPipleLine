@@ -116,17 +116,45 @@ function App() {
 
   // Secrets and Variables state
   const [secretsList, setSecretsList] = useState([
-    { id: "s1", name: "DOCKER_USERNAME", value: "vatsalpalm", type: "plain", scope: "All Environments", isRevealed: true },
-    { id: "s2", name: "DOCKER_PASSWORD", value: "docker-pass-12345", type: "secret", scope: "All Environments", isRevealed: false },
-    { id: "s3", name: "SONAR_TOKEN", value: "sqa_987654321abcdef0123456789", type: "secret", scope: "All Environments", isRevealed: false },
-    { id: "s4", name: "API_URL", value: "https://api.vatsalpalm.com/v1", type: "plain", scope: "Production", isRevealed: true },
+    {
+      id: "s1",
+      name: "DOCKER_USERNAME",
+      value: "vatsalpalm",
+      type: "plain",
+      scope: "All Environments",
+      isRevealed: true,
+    },
+    {
+      id: "s2",
+      name: "DOCKER_PASSWORD",
+      value: "docker-pass-12345",
+      type: "secret",
+      scope: "All Environments",
+      isRevealed: false,
+    },
+    {
+      id: "s3",
+      name: "SONAR_TOKEN",
+      value: "sqa_987654321abcdef0123456789",
+      type: "secret",
+      scope: "All Environments",
+      isRevealed: false,
+    },
+    {
+      id: "s4",
+      name: "API_URL",
+      value: "https://api.vatsalpalm.com/v1",
+      type: "plain",
+      scope: "Production",
+      isRevealed: true,
+    },
   ]);
 
   const [secretForm, setSecretForm] = useState({
     name: "",
     value: "",
     type: "secret",
-    scope: "All Environments"
+    scope: "All Environments",
   });
 
   const [secretErrors, setSecretErrors] = useState({});
@@ -136,13 +164,13 @@ function App() {
     const { name, value } = e.target;
     setSecretForm((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleToggleSecretReveal = (id) => {
     setSecretsList((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, isRevealed: !s.isRevealed } : s))
+      prev.map((s) => (s.id === id ? { ...s, isRevealed: !s.isRevealed } : s)),
     );
   };
 
@@ -158,7 +186,8 @@ function App() {
     if (!secretForm.name) {
       errors.name = "Variable name is required";
     } else if (!nameRegex.test(secretForm.name)) {
-      errors.name = "Variable Name must only contain uppercase letters, numbers, and underscores, and start with a letter";
+      errors.name =
+        "Variable Name must only contain uppercase letters, numbers, and underscores, and start with a letter";
     } else if (secretsList.some((s) => s.name === secretForm.name)) {
       errors.name = "Variable Name already exists";
     }
@@ -178,7 +207,7 @@ function App() {
       value: secretForm.value,
       type: secretForm.type,
       scope: secretForm.scope,
-      isRevealed: secretForm.type === "plain"
+      isRevealed: secretForm.type === "plain",
     };
 
     setSecretsList((prev) => [...prev, newSecret]);
@@ -186,7 +215,7 @@ function App() {
       name: "",
       value: "",
       type: "secret",
-      scope: "All Environments"
+      scope: "All Environments",
     });
     setSecretErrors({});
     setShowSecretSuccess(true);
@@ -321,28 +350,52 @@ function App() {
           <button
             onClick={() => setActiveTab("pipeline")}
             className={`nav-link ${activeTab === "pipeline" ? "active" : ""}`}
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "inherit" }}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              fontFamily: "inherit",
+            }}
           >
             Dashboard
           </button>
           <button
             onClick={() => setActiveTab("sonar")}
             className={`nav-link ${activeTab === "sonar" ? "active" : ""}`}
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "inherit" }}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              fontFamily: "inherit",
+            }}
           >
             Quality Gate
           </button>
           <button
             onClick={() => setActiveTab("secrets")}
             className={`nav-link ${activeTab === "secrets" ? "active" : ""}`}
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "inherit" }}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              fontFamily: "inherit",
+            }}
           >
             Secrets Manager
           </button>
           <button
             onClick={handleOpenSettings}
             className="nav-link"
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "inherit" }}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              fontFamily: "inherit",
+            }}
           >
             Settings
           </button>
@@ -376,7 +429,7 @@ function App() {
             </svg>
             CI/CD Pipeline Center Active
           </div>
-          <h1 className="hero-title">Trushar's Development</h1>
+          <h1 className="hero-title">Vatsal's Development</h1>
           <p className="hero-subtitle">
             Configure integration actions, view live build status flow charts,
             and analyze deep code-quality metrics powered by SonarQube scanner.
@@ -1388,19 +1441,41 @@ function App() {
 
         {/* Tab content: Secrets & Variables Manager */}
         {activeTab === "secrets" && (
-          <section className="secrets-container" style={{ animation: "fade-in 0.2s ease-out", marginTop: "2rem" }}>
-            <div className="grid-container" style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr", gap: "2rem", marginTop: 0 }}>
+          <section
+            className="secrets-container"
+            style={{ animation: "fade-in 0.2s ease-out", marginTop: "2rem" }}
+          >
+            <div
+              className="grid-container"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1.6fr 1fr",
+                gap: "2rem",
+                marginTop: 0,
+              }}
+            >
               {/* Left Panel: Variables list */}
               <div className="glass-card" style={{ padding: "2rem" }}>
-                <h3 className="font-display" style={{ fontSize: "1.25rem", fontWeight: "700", marginBottom: "0.25rem" }}>
+                <h3
+                  className="font-display"
+                  style={{
+                    fontSize: "1.25rem",
+                    fontWeight: "700",
+                    marginBottom: "0.25rem",
+                  }}
+                >
                   Active Environment Variables & Secrets
                 </h3>
                 <p className="metric-desc" style={{ marginBottom: "1.5rem" }}>
-                  These key-value pairs are injected into your build container and runtime environments during deployment.
+                  These key-value pairs are injected into your build container
+                  and runtime environments during deployment.
                 </p>
 
                 <div style={{ overflowX: "auto" }}>
-                  <table className="sonar-issues-table" style={{ width: "100%" }}>
+                  <table
+                    className="sonar-issues-table"
+                    style={{ width: "100%" }}
+                  >
                     <thead>
                       <tr>
                         <th>Name</th>
@@ -1412,7 +1487,10 @@ function App() {
                     </thead>
                     <tbody>
                       {secretsList.map((secret) => (
-                        <tr key={secret.id} data-testid={`secret-row-${secret.name}`}>
+                        <tr
+                          key={secret.id}
+                          data-testid={`secret-row-${secret.name}`}
+                        >
                           <td
                             className="font-mono"
                             style={{
@@ -1424,25 +1502,50 @@ function App() {
                             {secret.name}
                           </td>
                           <td>
-                            <span className="status-badge" style={{ background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.05)" }}>
+                            <span
+                              className="status-badge"
+                              style={{
+                                background: "rgba(255, 255, 255, 0.05)",
+                                border: "1px solid rgba(255, 255, 255, 0.05)",
+                              }}
+                            >
                               {secret.scope}
                             </span>
                           </td>
-                          <td style={{ textTransform: "capitalize", fontWeight: "500" }}>
+                          <td
+                            style={{
+                              textTransform: "capitalize",
+                              fontWeight: "500",
+                            }}
+                          >
                             {secret.type === "secret" ? "Secret" : "Plain Text"}
                           </td>
-                          <td className="font-mono" style={{ fontSize: "0.875rem", color: "white" }}>
+                          <td
+                            className="font-mono"
+                            style={{ fontSize: "0.875rem", color: "white" }}
+                          >
                             <span data-testid={`secret-value-${secret.name}`}>
                               {secret.isRevealed ? secret.value : "••••••••"}
                             </span>
                           </td>
                           <td>
-                            <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.5rem" }}>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                gap: "0.5rem",
+                              }}
+                            >
                               {secret.type === "secret" && (
                                 <button
-                                  onClick={() => handleToggleSecretReveal(secret.id)}
+                                  onClick={() =>
+                                    handleToggleSecretReveal(secret.id)
+                                  }
                                   className="secondary-button"
-                                  style={{ padding: "4px 10px", fontSize: "0.75rem" }}
+                                  style={{
+                                    padding: "4px 10px",
+                                    fontSize: "0.75rem",
+                                  }}
                                   data-testid={`reveal-btn-${secret.name}`}
                                 >
                                   {secret.isRevealed ? "Hide" : "Show"}
@@ -1451,7 +1554,13 @@ function App() {
                               <button
                                 onClick={() => handleDeleteSecret(secret.id)}
                                 className="action-button secondary"
-                                style={{ padding: "4px 10px", fontSize: "0.75rem", background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.2)", color: "var(--color-rose)" }}
+                                style={{
+                                  padding: "4px 10px",
+                                  fontSize: "0.75rem",
+                                  background: "rgba(239, 68, 68, 0.1)",
+                                  border: "1px solid rgba(239, 68, 68, 0.2)",
+                                  color: "var(--color-rose)",
+                                }}
                                 data-testid={`delete-btn-${secret.name}`}
                               >
                                 Delete
@@ -1467,7 +1576,14 @@ function App() {
 
               {/* Right Panel: Add Form */}
               <div className="glass-card" style={{ padding: "2rem" }}>
-                <h3 className="font-display" style={{ fontSize: "1.25rem", fontWeight: "700", marginBottom: "0.25rem" }}>
+                <h3
+                  className="font-display"
+                  style={{
+                    fontSize: "1.25rem",
+                    fontWeight: "700",
+                    marginBottom: "0.25rem",
+                  }}
+                >
                   Add Variable / Secret
                 </h3>
                 <p className="metric-desc" style={{ marginBottom: "1.5rem" }}>
@@ -1494,7 +1610,16 @@ function App() {
                 <form onSubmit={handleSecretSubmit}>
                   {/* Name Input */}
                   <div style={{ marginBottom: "1.25rem" }}>
-                    <label htmlFor="secret-name-input" style={{ display: "block", fontSize: "0.8125rem", fontWeight: "600", color: "var(--text-secondary)", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="secret-name-input"
+                      style={{
+                        display: "block",
+                        fontSize: "0.8125rem",
+                        fontWeight: "600",
+                        color: "var(--text-secondary)",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       Variable Name
                     </label>
                     <input
@@ -1517,7 +1642,14 @@ function App() {
                       }}
                     />
                     {secretErrors.name && (
-                      <span style={{ display: "block", color: "var(--color-rose)", fontSize: "0.75rem", marginTop: "0.25rem" }}>
+                      <span
+                        style={{
+                          display: "block",
+                          color: "var(--color-rose)",
+                          fontSize: "0.75rem",
+                          marginTop: "0.25rem",
+                        }}
+                      >
                         {secretErrors.name}
                       </span>
                     )}
@@ -1525,7 +1657,16 @@ function App() {
 
                   {/* Value Input */}
                   <div style={{ marginBottom: "1.25rem" }}>
-                    <label htmlFor="secret-value-input" style={{ display: "block", fontSize: "0.8125rem", fontWeight: "600", color: "var(--text-secondary)", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="secret-value-input"
+                      style={{
+                        display: "block",
+                        fontSize: "0.8125rem",
+                        fontWeight: "600",
+                        color: "var(--text-secondary)",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       Variable Value
                     </label>
                     <textarea
@@ -1549,7 +1690,14 @@ function App() {
                       }}
                     />
                     {secretErrors.value && (
-                      <span style={{ display: "block", color: "var(--color-rose)", fontSize: "0.75rem", marginTop: "0.25rem" }}>
+                      <span
+                        style={{
+                          display: "block",
+                          color: "var(--color-rose)",
+                          fontSize: "0.75rem",
+                          marginTop: "0.25rem",
+                        }}
+                      >
                         {secretErrors.value}
                       </span>
                     )}
@@ -1557,11 +1705,29 @@ function App() {
 
                   {/* Type Radio Toggles */}
                   <div style={{ marginBottom: "1.25rem" }}>
-                    <label style={{ display: "block", fontSize: "0.8125rem", fontWeight: "600", color: "var(--text-secondary)", marginBottom: "0.5rem" }}>
+                    <label
+                      style={{
+                        display: "block",
+                        fontSize: "0.8125rem",
+                        fontWeight: "600",
+                        color: "var(--text-secondary)",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       Variable Type
                     </label>
                     <div style={{ display: "flex", gap: "1.5rem" }}>
-                      <label htmlFor="type-secret-radio" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8125rem", color: "white", cursor: "pointer" }}>
+                      <label
+                        htmlFor="type-secret-radio"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem",
+                          fontSize: "0.8125rem",
+                          color: "white",
+                          cursor: "pointer",
+                        }}
+                      >
                         <input
                           id="type-secret-radio"
                           type="radio"
@@ -1572,7 +1738,17 @@ function App() {
                         />
                         Secret (Masked)
                       </label>
-                      <label htmlFor="type-plain-radio" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8125rem", color: "white", cursor: "pointer" }}>
+                      <label
+                        htmlFor="type-plain-radio"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem",
+                          fontSize: "0.8125rem",
+                          color: "white",
+                          cursor: "pointer",
+                        }}
+                      >
                         <input
                           id="type-plain-radio"
                           type="radio"
@@ -1588,7 +1764,16 @@ function App() {
 
                   {/* Environment Scope */}
                   <div style={{ marginBottom: "1.75rem" }}>
-                    <label htmlFor="secret-scope-select" style={{ display: "block", fontSize: "0.8125rem", fontWeight: "600", color: "var(--text-secondary)", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="secret-scope-select"
+                      style={{
+                        display: "block",
+                        fontSize: "0.8125rem",
+                        fontWeight: "600",
+                        color: "var(--text-secondary)",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       Environment Scope
                     </label>
                     <select
@@ -1607,10 +1792,27 @@ function App() {
                         fontSize: "0.8125rem",
                       }}
                     >
-                      <option value="All Environments" style={{ background: "#0a0c10" }}>All Environments</option>
-                      <option value="Production" style={{ background: "#0a0c10" }}>Production</option>
-                      <option value="Staging" style={{ background: "#0a0c10" }}>Staging</option>
-                      <option value="Development" style={{ background: "#0a0c10" }}>Development</option>
+                      <option
+                        value="All Environments"
+                        style={{ background: "#0a0c10" }}
+                      >
+                        All Environments
+                      </option>
+                      <option
+                        value="Production"
+                        style={{ background: "#0a0c10" }}
+                      >
+                        Production
+                      </option>
+                      <option value="Staging" style={{ background: "#0a0c10" }}>
+                        Staging
+                      </option>
+                      <option
+                        value="Development"
+                        style={{ background: "#0a0c10" }}
+                      >
+                        Development
+                      </option>
                     </select>
                   </div>
 
@@ -1618,7 +1820,11 @@ function App() {
                   <button
                     type="submit"
                     className="action-button primary"
-                    style={{ width: "100%", padding: "0.625rem", fontSize: "0.8125rem" }}
+                    style={{
+                      width: "100%",
+                      padding: "0.625rem",
+                      fontSize: "0.8125rem",
+                    }}
                   >
                     Add Variable
                   </button>
