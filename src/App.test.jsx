@@ -15,7 +15,7 @@ describe('FlowOps Dashboard App Component', () => {
   it('renders the FlowOps header and developer section title', () => {
     render(<App />);
     expect(screen.getByText('FlowOps')).toBeInTheDocument();
-    expect(screen.getByText("Trushar's Development")).toBeInTheDocument();
+    expect(screen.getByText("Vatsal's Development")).toBeInTheDocument();
     expect(screen.getByText('Pipeline Success Rate')).toBeInTheDocument();
     expect(screen.getByText('Average Build Duration')).toBeInTheDocument();
     expect(screen.getByText('Production Releases')).toBeInTheDocument();
