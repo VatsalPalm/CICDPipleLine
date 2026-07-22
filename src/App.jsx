@@ -100,6 +100,17 @@ const INITIAL_SONAR_REPORT = {
 
 function App() {
   const [activeTab, setActiveTab] = useState("pipeline"); // 'pipeline' or 'sonar'
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Pipeline state
   const [selectedStage, setSelectedStage] = useState("security");
@@ -384,7 +395,7 @@ function App() {
               fontFamily: "inherit",
             }}
           >
-            Secrets Manager
+            {isMobile ? "Secrets" : "Secrets Manager"}
           </button>
           <button
             onClick={handleOpenSettings}
@@ -452,7 +463,7 @@ function App() {
             >
               <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
             </svg>
-            Pipeline Flow Chart
+            {isMobile ? "Pipeline" : "Pipeline Flow Chart"}
           </button>
           <button
             className={`tab-btn ${activeTab === "sonar" ? "active" : ""}`}
@@ -471,7 +482,7 @@ function App() {
               <line x1="9" y1="13" x2="15" y2="13" />
               <line x1="9" y1="17" x2="13" y2="17" />
             </svg>
-            SonarQube Quality Gate
+            {isMobile ? "SonarQube" : "SonarQube Quality Gate"}
             {sonarReport.issues.length > 0 && (
               <span
                 style={{
@@ -503,7 +514,7 @@ function App() {
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
-            Secrets Manager
+            {isMobile ? "Secrets" : "Secrets Manager"}
           </button>
         </div>
 

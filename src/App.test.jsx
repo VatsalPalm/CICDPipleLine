@@ -521,4 +521,85 @@ describe("FlowOps Dashboard App Component", () => {
       expect(screen.queryByText("API_URL")).not.toBeInTheDocument();
     });
   });
+
+  describe("Dashboard Major UI Elements Tests", () => {
+    it("verifies key metrics cards are rendering correct values", () => {
+      render(<App />);
+
+      // Verify Metrics Card titles
+      expect(screen.getByText("Pipeline Success Rate")).toBeInTheDocument();
+      expect(screen.getByText("Average Build Duration")).toBeInTheDocument();
+      expect(screen.getByText("Production Releases")).toBeInTheDocument();
+
+      // Verify specific metric card values
+      expect(screen.getByText("99.42%")).toBeInTheDocument();
+      expect(screen.getByText("3m 42s")).toBeInTheDocument();
+      expect(screen.getByText("1,248")).toBeInTheDocument();
+
+      // Verify description texts are present
+      expect(screen.getByText(/than last week/i)).toBeInTheDocument();
+      expect(screen.getByText(/compared to previous release/i)).toBeInTheDocument();
+      expect(screen.getByText(/currently active in sandbox/i)).toBeInTheDocument();
+    });
+
+    it("verifies header status badge and elements are rendering correctly", () => {
+      render(<App />);
+
+      // Verify logo icon and text
+      expect(screen.getByText("F")).toBeInTheDocument();
+      expect(screen.getByText("FlowOps")).toBeInTheDocument();
+
+      // Verify active status badge in header
+      expect(screen.getByText("Production: Stable")).toBeInTheDocument();
+      expect(screen.getByText("CI/CD Pipeline Center Active")).toBeInTheDocument();
+    });
+  });
+
+  describe("Responsive Layout & Viewport Resizing Tests", () => {
+    let originalInnerWidth;
+
+    beforeEach(() => {
+      originalInnerWidth = window.innerWidth;
+    });
+
+    afterEach(() => {
+      // Restore original innerWidth
+      window.innerWidth = originalInnerWidth;
+      act(() => {
+        window.dispatchEvent(new Event("resize"));
+      });
+    });
+
+    it("renders full tab button names on desktop and switches to shorter versions on mobile", () => {
+      // Set desktop size
+      window.innerWidth = 1024;
+      render(<App />);
+
+      // Expect full names
+      expect(screen.getByRole("button", { name: /Pipeline Flow Chart/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /SonarQube Quality Gate/i })).toBeInTheDocument();
+      expect(screen.getAllByRole("button", { name: /Secrets Manager/i }).length).toBe(2);
+
+      // Simulate mobile size
+      act(() => {
+        window.innerWidth = 500;
+        window.dispatchEvent(new Event("resize"));
+      });
+
+      expect(screen.getByRole("button", { name: /^Pipeline$/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /^SonarQube/i })).toBeInTheDocument();
+      expect(screen.getAllByRole("button", { name: /^Secrets$/i }).length).toBe(2);
+
+      // Switch back to desktop size
+      act(() => {
+        window.innerWidth = 1024;
+        window.dispatchEvent(new Event("resize"));
+      });
+
+      // Expect full names again
+      expect(screen.getByRole("button", { name: /Pipeline Flow Chart/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /SonarQube Quality Gate/i })).toBeInTheDocument();
+      expect(screen.getAllByRole("button", { name: /Secrets Manager/i }).length).toBe(2);
+    });
+  });
 });
