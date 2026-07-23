@@ -1,10 +1,26 @@
 version: '3.8'
 
 services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  dashboard:
+    build: ./apps/dashboard
     ports:
       - "8080:80"
+    restart: always
+
+  pipeline-service:
+    build: ./services/pipeline-service
+    ports:
+      - "8081:80"
+    restart: always
+
+  sonar-service:
+    build: ./services/sonar-service
+    ports:
+      - "8082:80"
+    restart: always
+
+  secrets-service:
+    build: ./services/secrets-service
+    ports:
+      - "8083:80"
     restart: always

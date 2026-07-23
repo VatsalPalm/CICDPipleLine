@@ -1,0 +1,14 @@
+{
+  "name": "@flowops/secrets-service",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "lint": "oxlint"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0",
+    "oxlint": "^1.71.0"
+  }
+}

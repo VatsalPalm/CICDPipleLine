@@ -26,10 +26,14 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run Build Check
-        run: yarn build
+        run: yarn workspace @flowops/dashboard build
 
       - name: Run Unit Tests with Coverage
-        run: yarn test:coverage
+        run: |
+          yarn workspace @flowops/dashboard test:coverage
+          yarn workspace @flowops/pipeline-service test
+          yarn workspace @flowops/sonar-service test
+          yarn workspace @flowops/secrets-service test
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@v5
@@ -60,11 +64,38 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and Push Docker Image to Amazon ECR
+      - name: Build and Push Dashboard to Amazon ECR
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./apps/dashboard
           push: true
           tags: |
             780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app:latest
             780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app:${{ github.sha }}
+
+      - name: Build and Push Pipeline Service to Amazon ECR
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/pipeline-service
+          push: true
+          tags: |
+            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-pipeline:latest
+            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-pipeline:${{ github.sha }}
+
+      - name: Build and Push Sonar Service to Amazon ECR
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/sonar-service
+          push: true
+          tags: |
+            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-sonar:latest
+            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-sonar:${{ github.sha }}
+
+      - name: Build and Push Secrets Service to Amazon ECR
+        uses: docker/build-push-action@v5
+        with:
+          context: ./services/secrets-service
+          push: true
+          tags: |
+            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-secrets:latest
+            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-secrets:${{ github.sha }}
