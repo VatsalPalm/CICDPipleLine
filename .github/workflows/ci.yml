@@ -67,7 +67,8 @@ jobs:
       - name: Build and Push Dashboard to Amazon ECR
         uses: docker/build-push-action@v5
         with:
-          context: ./apps/dashboard
+          context: .
+          file: ./apps/dashboard/Dockerfile
           push: true
           tags: |
             780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app:latest

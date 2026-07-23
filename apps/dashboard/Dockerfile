@@ -3,21 +3,29 @@ FROM node:22-alpine AS build
 
 WORKDIR /app
 
-# Copy dependency manifests
+# Copy root dependency manifests
 COPY package.json yarn.lock ./
 
-# Install dependencies
+# Copy workspace package manifests
+COPY apps/dashboard/package.json ./apps/dashboard/
+COPY services/pipeline-service/package.json ./services/pipeline-service/
+COPY services/sonar-service/package.json ./services/sonar-service/
+COPY services/secrets-service/package.json ./services/secrets-service/
+
+# Install dependencies for all workspaces
 RUN yarn install --frozen-lockfile
 
-# Copy source code and build
+# Copy all source files
 COPY . .
-RUN yarn build
+
+# Build dashboard package
+RUN yarn workspace @flowops/dashboard build
 
 # Production stage (serve build artifacts)
 FROM nginx:stable-alpine
 
 # Copy built HTML/JS/CSS assets to Nginx html folder
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/apps/dashboard/dist /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
