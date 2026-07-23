@@ -53,50 +53,39 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+#       - name: Configure AWS Credentials
+#         uses: aws-actions/configure-aws-credentials@v4
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: ap-south-1
 
-      - name: Log in to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+#       - name: Log in to Amazon ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and Push Dashboard to Amazon ECR
+      - name: Build Dashboard
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./apps/dashboard/Dockerfile
-          push: true
-          tags: |
-            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app:latest
-            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app:${{ github.sha }}
+          push: false
 
-      - name: Build and Push Pipeline Service to Amazon ECR
+      - name: Build Pipeline Service
         uses: docker/build-push-action@v5
         with:
           context: ./services/pipeline-service
-          push: true
-          tags: |
-            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-pipeline:latest
-            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-pipeline:${{ github.sha }}
+          push: false
 
-      - name: Build and Push Sonar Service to Amazon ECR
+      - name: Build Sonar Service
         uses: docker/build-push-action@v5
         with:
           context: ./services/sonar-service
-          push: true
-          tags: |
-            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-sonar:latest
-            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-sonar:${{ github.sha }}
+          push: false
 
-      - name: Build and Push Secrets Service to Amazon ECR
+      - name: Build Secrets Service
         uses: docker/build-push-action@v5
         with:
           context: ./services/secrets-service
-          push: true
-          tags: |
-            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-secrets:latest
-            780138804721.dkr.ecr.ap-south-1.amazonaws.com/cicd-pipeline-app-secrets:${{ github.sha }}
+          push: false
+
