@@ -538,8 +538,12 @@ describe("FlowOps Dashboard App Component", () => {
 
       // Verify description texts are present
       expect(screen.getByText(/than last week/i)).toBeInTheDocument();
-      expect(screen.getByText(/compared to previous release/i)).toBeInTheDocument();
-      expect(screen.getByText(/currently active in sandbox/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/compared to previous release/i),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(/currently active in sandbox/i),
+      ).toBeInTheDocument();
     });
 
     it("verifies header status badge and elements are rendering correctly", () => {
@@ -551,7 +555,9 @@ describe("FlowOps Dashboard App Component", () => {
 
       // Verify active status badge in header
       expect(screen.getByText("Production: Stable")).toBeInTheDocument();
-      expect(screen.getByText("CI/CD Pipeline Center Active")).toBeInTheDocument();
+      expect(
+        screen.getByText("CI/CD Pipeline Center Active"),
+      ).toBeInTheDocument();
     });
   });
 
@@ -576,9 +582,15 @@ describe("FlowOps Dashboard App Component", () => {
       render(<App />);
 
       // Expect full names
-      expect(screen.getByRole("button", { name: /Pipeline Flow Chart/i })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: /SonarQube Quality Gate/i })).toBeInTheDocument();
-      expect(screen.getAllByRole("button", { name: /Secrets Manager/i }).length).toBe(2);
+      expect(
+        screen.getByRole("button", { name: /Pipeline Flow Chart/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /SonarQube Quality Gate/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getAllByRole("button", { name: /Secrets Manager/i }).length,
+      ).toBe(2);
 
       // Simulate mobile size
       act(() => {
@@ -586,9 +598,15 @@ describe("FlowOps Dashboard App Component", () => {
         window.dispatchEvent(new Event("resize"));
       });
 
-      expect(screen.getByRole("button", { name: /^Pipeline$/i })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: /^SonarQube/i })).toBeInTheDocument();
-      expect(screen.getAllByRole("button", { name: /^Secrets$/i }).length).toBe(2);
+      expect(
+        screen.getByRole("button", { name: /^Pipeline$/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /^SonarQube/i }),
+      ).toBeInTheDocument();
+      expect(screen.getAllByRole("button", { name: /^Secrets$/i }).length).toBe(
+        2,
+      );
 
       // Switch back to desktop size
       act(() => {
@@ -597,9 +615,15 @@ describe("FlowOps Dashboard App Component", () => {
       });
 
       // Expect full names again
-      expect(screen.getByRole("button", { name: /Pipeline Flow Chart/i })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: /SonarQube Quality Gate/i })).toBeInTheDocument();
-      expect(screen.getAllByRole("button", { name: /Secrets Manager/i }).length).toBe(2);
+      expect(
+        screen.getByRole("button", { name: /Pipeline Flow Chart/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /SonarQube Quality Gate/i }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getAllByRole("button", { name: /Secrets Manager/i }).length,
+      ).toBe(2);
     });
   });
 });
