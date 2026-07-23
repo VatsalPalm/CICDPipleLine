@@ -101,7 +101,7 @@ const INITIAL_SONAR_REPORT = {
 function App() {
   const [activeTab, setActiveTab] = useState("pipeline"); // 'pipeline' or 'sonar'
   const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" ? window.innerWidth < 768 : false
+    typeof window !== "undefined" ? window.innerWidth < 768 : false,
   );
 
   useEffect(() => {
@@ -428,7 +428,7 @@ function App() {
         <section className="hero-section">
           <div className="hero-tag">
             <svg
-              width="12"
+              width="15"
               height="12"
               viewBox="0 0 24 24"
               fill="none"
