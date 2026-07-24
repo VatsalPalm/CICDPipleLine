@@ -24,6 +24,9 @@ RUN yarn workspace @flowops/dashboard build
 # Production stage (serve build artifacts)
 FROM nginx:stable-alpine
 
+# Copy custom Nginx configuration for reverse proxy
+COPY apps/dashboard/nginx.conf /etc/nginx/conf.d/default.conf
+
 # Copy built HTML/JS/CSS assets to Nginx html folder
 COPY --from=build /app/apps/dashboard/dist /usr/share/nginx/html
 

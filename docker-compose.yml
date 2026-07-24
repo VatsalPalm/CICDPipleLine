@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   dashboard:
-    build: ./apps/dashboard
+    build:
+      context: .
+      dockerfile: apps/dashboard/Dockerfile
     ports:
       - "8080:80"
     restart: always

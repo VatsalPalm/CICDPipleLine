@@ -410,6 +410,34 @@ function App() {
           >
             Settings
           </button>
+          <span style={{ color: "var(--text-secondary)", opacity: 0.5 }}>|</span>
+          <a
+            href="/services/pipeline-service/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-link"
+            style={{ textDecoration: "none" }}
+          >
+            Pipeline API
+          </a>
+          <a
+            href="/services/sonar-service/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-link"
+            style={{ textDecoration: "none" }}
+          >
+            Sonar API
+          </a>
+          <a
+            href="/services/secrets-service/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-link"
+            style={{ textDecoration: "none" }}
+          >
+            Secrets API
+          </a>
         </nav>
         <div>
           <span className="status-badge success">
