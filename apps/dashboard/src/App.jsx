@@ -411,33 +411,45 @@ function App() {
             Settings
           </button>
           <span style={{ color: "var(--text-secondary)", opacity: 0.5 }}>|</span>
-          <a
-            href="/services/pipeline-service/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-link"
-            style={{ textDecoration: "none" }}
+          <button
+            onClick={() => setActiveTab("live-pipeline")}
+            className={`nav-link ${activeTab === "live-pipeline" ? "active" : ""}`}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              fontFamily: "inherit",
+            }}
           >
             Pipeline API
-          </a>
-          <a
-            href="/services/sonar-service/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-link"
-            style={{ textDecoration: "none" }}
+          </button>
+          <button
+            onClick={() => setActiveTab("live-sonar")}
+            className={`nav-link ${activeTab === "live-sonar" ? "active" : ""}`}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              fontFamily: "inherit",
+            }}
           >
             Sonar API
-          </a>
-          <a
-            href="/services/secrets-service/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-link"
-            style={{ textDecoration: "none" }}
+          </button>
+          <button
+            onClick={() => setActiveTab("live-secrets")}
+            className={`nav-link ${activeTab === "live-secrets" ? "active" : ""}`}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              fontFamily: "inherit",
+            }}
           >
             Secrets API
-          </a>
+          </button>
         </nav>
         <div>
           <span className="status-badge success">
@@ -1869,6 +1881,45 @@ function App() {
                   </button>
                 </form>
               </div>
+            </div>
+          </section>
+        )}
+
+        {/* Tab content: Live Pipeline API */}
+        {activeTab === "live-pipeline" && (
+          <section style={{ animation: "fade-in 0.2s ease-out", marginTop: "2rem" }}>
+            <div className="glass-card" style={{ padding: "0", overflow: "hidden", borderRadius: "16px", height: "80vh", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
+              <iframe
+                src="/services/pipeline-service/"
+                style={{ width: "100%", height: "100%", border: "none", background: "#0b0f19" }}
+                title="Live Pipeline Service"
+              />
+            </div>
+          </section>
+        )}
+
+        {/* Tab content: Live Sonar API */}
+        {activeTab === "live-sonar" && (
+          <section style={{ animation: "fade-in 0.2s ease-out", marginTop: "2rem" }}>
+            <div className="glass-card" style={{ padding: "0", overflow: "hidden", borderRadius: "16px", height: "80vh", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
+              <iframe
+                src="/services/sonar-service/"
+                style={{ width: "100%", height: "100%", border: "none", background: "#09090e" }}
+                title="Live Sonar Service"
+              />
+            </div>
+          </section>
+        )}
+
+        {/* Tab content: Live Secrets API */}
+        {activeTab === "live-secrets" && (
+          <section style={{ animation: "fade-in 0.2s ease-out", marginTop: "2rem" }}>
+            <div className="glass-card" style={{ padding: "0", overflow: "hidden", borderRadius: "16px", height: "80vh", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
+              <iframe
+                src="/services/secrets-service/"
+                style={{ width: "100%", height: "100%", border: "none", background: "#0b0709" }}
+                title="Live Secrets Service"
+              />
             </div>
           </section>
         )}
