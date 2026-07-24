@@ -99,6 +99,7 @@ const INITIAL_SONAR_REPORT = {
 };
 
 function App() {
+  const appEnv = import.meta.env.VITE_APP_ENV || "production";
   const [activeTab, setActiveTab] = useState("pipeline"); // 'pipeline' or 'sonar'
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.innerWidth < 768 : false,
@@ -452,13 +453,43 @@ function App() {
           </button>
         </nav>
         <div>
-          <span className="status-badge success">
+          {appEnv === "staging" ? (
             <span
-              className="pulse-dot success"
-              style={{ marginRight: "6px" }}
-            ></span>
-            Production: Stable
-          </span>
+              className="status-badge"
+              style={{
+                background: "rgba(245, 158, 11, 0.1)",
+                border: "1px solid rgba(245, 158, 11, 0.3)",
+                color: "#fbbf24",
+                padding: "6px 12px",
+                borderRadius: "9999px",
+                fontSize: "14px",
+                fontWeight: "600",
+                display: "inline-flex",
+                alignItems: "center",
+              }}
+            >
+              <span
+                style={{
+                  marginRight: "6px",
+                  display: "inline-block",
+                  width: "8px",
+                  height: "8px",
+                  borderRadius: "50%",
+                  backgroundColor: "#fbbf24",
+                  boxShadow: "0 0 8px #fbbf24",
+                }}
+              ></span>
+              Staging: Active
+            </span>
+          ) : (
+            <span className="status-badge success">
+              <span
+                className="pulse-dot success"
+                style={{ marginRight: "6px" }}
+              ></span>
+              Production: Stable
+            </span>
+          )}
         </div>
       </header>
 

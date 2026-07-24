@@ -5,24 +5,26 @@ services:
     build:
       context: .
       dockerfile: apps/dashboard/Dockerfile
+      args:
+        - VITE_APP_ENV=${VITE_APP_ENV:-production}
     ports:
-      - "8080:80"
+      - "${DASHBOARD_PORT:-8080}:80"
     restart: always
 
   pipeline-service:
     build: ./services/pipeline-service
     ports:
-      - "8081:80"
+      - "${PIPELINE_PORT:-8081}:80"
     restart: always
 
   sonar-service:
     build: ./services/sonar-service
     ports:
-      - "8082:80"
+      - "${SONAR_PORT:-8082}:80"
     restart: always
 
   secrets-service:
     build: ./services/secrets-service
     ports:
-      - "8083:80"
+      - "${SECRETS_PORT:-8083}:80"
     restart: always

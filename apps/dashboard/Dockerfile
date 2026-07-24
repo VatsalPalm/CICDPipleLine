@@ -18,6 +18,10 @@ RUN yarn install --frozen-lockfile
 # Copy all source files
 COPY . .
 
+# Declare Vite app environment build argument
+ARG VITE_APP_ENV=production
+ENV VITE_APP_ENV=$VITE_APP_ENV
+
 # Build dashboard package
 RUN yarn workspace @flowops/dashboard build
 
